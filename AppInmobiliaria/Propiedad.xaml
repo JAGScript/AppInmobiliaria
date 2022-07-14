@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AppInmobiliaria.Propiedad"
+             NavigationPage.HasNavigationBar="False"
+             BackgroundImage="fondo.jpg">
+    <ContentPage.Content>
+        <StackLayout>
+            <Frame BackgroundColor="Transparent" Padding="0" Margin="0" HorizontalOptions="FillAndExpand">
+                <StackLayout Orientation="Horizontal">
+                    <Frame BackgroundColor="Transparent" Padding="0" HorizontalOptions="Start">
+                        <Image Source="logo.png" WidthRequest="125"/>
+                    </Frame>
+                    <Label x:Name="lblNomUser" TextColor="#e09b1c" FontSize="20" VerticalTextAlignment="Center" FontAttributes="Bold" HorizontalOptions="EndAndExpand" Margin="0, 0, 15, 0"/>
+                </StackLayout>
+            </Frame>
+            <Label Text="Propiedades" HorizontalTextAlignment="Center" FontSize="30" FontAttributes="Bold"/>
+            <CollectionView x:Name="listaPropiedades" Margin="10">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame BackgroundColor="Transparent" Padding="5" CornerRadius="5" IsClippedToBounds="False">
+                            <Grid HeightRequest="125">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width=".9*" />
+                                    <ColumnDefinition Width=".9*" />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height=".5*" />
+                                    <RowDefinition Height=".5*" />
+                                </Grid.RowDefinitions>
+                                <Image Grid.RowSpan="2" Source="{Binding pr_foto_principal}" />
+                                <Label Grid.Column="1" FontAttributes="Bold" FontSize="20" Text="{Binding tp_nombre}" VerticalOptions="Center" />
+                                <Label Grid.Row="1" Grid.Column="1" FontAttributes="Bold" FontSize="15" Text="{Binding pr_precio, StringFormat='{0:C}'}" />
+                                <Button Grid.Row="1" Grid.Column="1" HorizontalOptions="End" x:Name="btnDetalle" ImageSource="icon_btnVertical.png" Clicked="btnDetalle_Clicked" CommandParameter="{Binding pr_id}" BackgroundColor="#e09b1c" />
+                            </Grid>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

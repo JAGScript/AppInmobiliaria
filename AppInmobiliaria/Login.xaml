@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AppInmobiliaria.Login"
+             NavigationPage.HasNavigationBar="False"
+             BackgroundImage="fondo.jpg">
+    <ContentPage.Content>
+        <StackLayout Padding="0">
+            <Image Source="logo.png" Margin="0"/>
+
+            <Label Text="Iniciar Sesión" HorizontalTextAlignment="Center" FontSize="30" FontAttributes="Bold"></Label>
+            
+            <Frame BorderColor="DarkGray" Padding="0" Margin="0" CornerRadius="50" HorizontalOptions="FillAndExpand">
+                <StackLayout Orientation="Horizontal">
+                    <Frame Padding="0" HorizontalOptions="Start" Margin="7">
+                        <Image Source="icon_user.png"/>
+                    </Frame>
+                    <Entry x:Name="txtUsername" Placeholder="Username" TextColor="#e09b1c" HorizontalOptions="FillAndExpand" Margin="0, 0, 15, 0"/>
+                </StackLayout>
+            </Frame>
+            <Frame BorderColor="DarkGray" Padding="0" Margin="0,15,0,0" CornerRadius="50" HorizontalOptions="FillAndExpand">
+                <StackLayout Orientation="Horizontal">
+                    <Frame Padding="0" HorizontalOptions="Start" Margin="7">
+                        <Image Source="icon_llave.png" Aspect="Fill" Margin="0"/>
+                    </Frame>
+                    <Entry x:Name="txtPass" Placeholder="Password" IsPassword="True" TextColor="#e09b1c" HorizontalOptions="FillAndExpand" Margin="0, 0, 15, 0"/>
+                </StackLayout>
+            </Frame>
+            <Button x:Name="btnIngresar" Text="Inicar Sesión" BackgroundColor="#e09b1c" Clicked="btnIngresar_Clicked" TextColor="White" FontAttributes="Bold" CornerRadius="20" />
+            <StackLayout Orientation="Horizontal" Padding="0, 10">
+                <Button x:Name="btnRecuperar" Text="¿Olvidó su contraseña?" BackgroundColor="Transparent" Clicked="btnRecuperar_Clicked" TextColor="#e09b1c" FontSize="15" HorizontalOptions="EndAndExpand" FontAttributes="Bold" CornerRadius="20" />
+            </StackLayout>
+            <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                <Label Text="¿Todavia no te conectas?" HorizontalTextAlignment="Center" FontSize="20" VerticalTextAlignment="Center"/>
+            </StackLayout>
+            <Button x:Name="btnRegistrarse" Text="Registrarse" BackgroundColor="#e09b1c" Clicked="btnRegistrarse_Clicked" TextColor="White" FontAttributes="Bold" CornerRadius="20" />
+            <StackLayout>
+                <Grid>
+                    <BoxView BackgroundColor="DarkGray" HeightRequest="1" Margin="50" HorizontalOptions="FillAndExpand" WidthRequest="130"/>
+                    <Frame BackgroundColor="White" BorderColor="DarkGray" WidthRequest="50" Padding="0" Margin="0" HeightRequest="50" CornerRadius="30" HasShadow="False" VerticalOptions="Center" HorizontalOptions="CenterAndExpand">
+                        <Label Text="O" TextColor="DarkGray" FontSize="Small" HorizontalTextAlignment="Center" FontAttributes="Bold" VerticalTextAlignment="Center"/>
+                    </Frame>
+                </Grid>
+                <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand">
+                    <Frame BackgroundColor="Transparent" Padding="0" Margin="0" HeightRequest="50" CornerRadius="30" HasShadow="False">
+                        <Image Source="icon_facebook.png" Margin="0"/>
+                    </Frame>
+                    <Frame BackgroundColor="Transparent" Padding="0" Margin="0" HeightRequest="50" CornerRadius="30" HasShadow="False">
+                        <Image Source="icon_instagram.png" Margin="0"/>
+                    </Frame>
+                    <Frame BackgroundColor="Transparent" Padding="0" Margin="0" HeightRequest="50" CornerRadius="30" HasShadow="False">
+                        <Image Source="icon_twitter.png" Margin="0"/>
+                    </Frame>
+                </StackLayout>
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

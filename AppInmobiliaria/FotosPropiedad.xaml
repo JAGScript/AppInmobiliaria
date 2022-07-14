@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AppInmobiliaria.FotosPropiedad"
+             NavigationPage.HasNavigationBar="False"
+             BackgroundImage="fondo.jpg">
+    <ContentPage.Content>
+        <StackLayout>
+            <Frame BackgroundColor="Transparent" Padding="0" Margin="0" HorizontalOptions="FillAndExpand">
+                <StackLayout Orientation="Horizontal">
+                    <Frame BackgroundColor="Transparent" Padding="0" HorizontalOptions="Start">
+                        <Image Source="logo.png" WidthRequest="125"/>
+                    </Frame>
+                    <Label x:Name="lblNomUser" TextColor="#e09b1c" FontSize="20" VerticalTextAlignment="Center" FontAttributes="Bold" HorizontalOptions="EndAndExpand" Margin="0, 0, 15, 0"/>
+                </StackLayout>
+            </Frame>
+            <Label Text="Fotos Propiedad" HorizontalTextAlignment="Center" FontSize="30" FontAttributes="Bold"/>
+
+            <CarouselView x:Name="carouselFotos" IndicatorView="fotosIndicador">
+                <CarouselView.ItemTemplate>
+                    <DataTemplate>
+                        <StackLayout>
+                            <Frame HasShadow="True"
+                               BorderColor="DarkGray"
+                               CornerRadius="5"
+                               Margin="20"
+                               HeightRequest="300" WidthRequest="400"
+                               HorizontalOptions="Center"
+                               VerticalOptions="CenterAndExpand">
+                                <StackLayout>
+
+                                    <Image Source="{Binding im_nombre}"
+                                       Aspect="AspectFit"
+                                       HeightRequest="300"
+                                       WidthRequest="400"
+                                       HorizontalOptions="Center" />
+
+                                    <BoxView Color="DarkGray"
+                                         HeightRequest="1"
+                                         HorizontalOptions="FillAndExpand"/>
+
+                                </StackLayout>
+                            </Frame>
+                        </StackLayout>
+                    </DataTemplate>
+                </CarouselView.ItemTemplate>
+            </CarouselView>
+
+            <IndicatorView x:Name="fotosIndicador" 
+                       IndicatorColor="Orange"
+                       SelectedIndicatorColor="Black"
+                       HorizontalOptions="Center" 
+                       Margin="0,20"/>
+
+            <Button x:Name="btnVolver" Text="Volver" BackgroundColor="#e09b1c" Clicked="btnVolver_Clicked" TextColor="White" FontAttributes="Bold" CornerRadius="20" />
+
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

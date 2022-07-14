@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AppInmobiliaria.Recuperar"
+             NavigationPage.HasNavigationBar="False"
+             BackgroundImage="images/fondo.jpg">
+    <ContentPage.Content>
+        <StackLayout>
+            <Label Text="Recuperar Contraseña" HorizontalTextAlignment="Center" FontSize="30" FontAttributes="Bold" />
+            <Label Text="Identificación:" HorizontalTextAlignment="Start" FontSize="20" FontAttributes="Bold" />
+            <Frame BorderColor="DarkGray" Padding="0" Margin="0" CornerRadius="50" HorizontalOptions="FillAndExpand">
+                <StackLayout Orientation="Horizontal">
+                    <Frame Padding="0" HorizontalOptions="Start" Margin="7">
+                        <Image Source="icons/icon_identificacion.png"/>
+                    </Frame>
+                    <Entry x:Name="txtIdentificacion" Placeholder="Identificación" TextColor="#e09b1c" HorizontalOptions="FillAndExpand" Margin="0, 0, 15, 0"/>
+                </StackLayout>
+            </Frame>
+            <Label Text="Correo:" HorizontalTextAlignment="Start" FontSize="20" FontAttributes="Bold" />
+            <Frame BorderColor="DarkGray" Padding="0" Margin="0" CornerRadius="50" HorizontalOptions="FillAndExpand">
+                <StackLayout Orientation="Horizontal">
+                    <Frame Padding="0" HorizontalOptions="Start" Margin="7">
+                        <Image Source="icons/icon_correo.png"/>
+                    </Frame>
+                    <Entry x:Name="txtCorreo" Placeholder="pruebas@pruebas.com" TextColor="#e09b1c" HorizontalOptions="FillAndExpand" Margin="0, 0, 15, 0"/>
+                </StackLayout>
+            </Frame>
+            <Label Text="Login:" HorizontalTextAlignment="Start" FontSize="20" FontAttributes="Bold" />
+            <Frame BorderColor="DarkGray" Padding="0" Margin="0" CornerRadius="50" HorizontalOptions="FillAndExpand">
+                <StackLayout Orientation="Horizontal">
+                    <Frame Padding="0" HorizontalOptions="Start" Margin="7">
+                        <Image Source="icons/icon_user.png"/>
+                    </Frame>
+                    <Entry x:Name="txtLogin" Placeholder="Username" TextColor="#e09b1c" HorizontalOptions="FillAndExpand" Margin="0, 0, 15, 0"/>
+                </StackLayout>
+            </Frame>
+            <Button x:Name="btnRecuperar" Text="Enviar Código" VerticalOptions="EndAndExpand" BackgroundColor="#e09b1c" Clicked="btnRecuperar_Clicked" TextColor="White" FontAttributes="Bold" CornerRadius="20" />
+            <StackLayout x:Name="seccionRecuperar" IsVisible="False">
+                <Label Text="Ingresar Información" HorizontalTextAlignment="Center" FontSize="30" FontAttributes="Bold" />
+                <Label Text="Código:" HorizontalTextAlignment="Start" FontSize="20" FontAttributes="Bold" />
+                <Frame BorderColor="DarkGray" Padding="0" Margin="0" CornerRadius="50" HorizontalOptions="FillAndExpand">
+                    <StackLayout Orientation="Horizontal">
+                        <Frame Padding="0" HorizontalOptions="Start" Margin="7">
+                            <Image Source="icons/icon_codigo.png"/>
+                        </Frame>
+                        <Entry x:Name="txtCodigo" Placeholder="Código enviado por correo" TextColor="#e09b1c" HorizontalOptions="FillAndExpand" Margin="0, 0, 15, 0"/>
+                    </StackLayout>
+                </Frame>
+                <Label Text="Nueva Contraseña:" HorizontalTextAlignment="Start" FontSize="20" FontAttributes="Bold" />
+                <Frame BorderColor="DarkGray" Padding="0" Margin="0" CornerRadius="50" HorizontalOptions="FillAndExpand">
+                    <StackLayout Orientation="Horizontal">
+                        <Frame Padding="0" HorizontalOptions="Start" Margin="7">
+                            <Image Source="icons/icon_llave.png"/>
+                        </Frame>
+                        <Entry x:Name="txtNuevoPass" Placeholder="********" IsPassword="True" TextColor="#e09b1c" HorizontalOptions="FillAndExpand" Margin="0, 0, 15, 0"/>
+                    </StackLayout>
+                </Frame>
+            </StackLayout>
+            <Button x:Name="btnCambiar" Text="Cambiar Contraseña" IsVisible="False" VerticalOptions="EndAndExpand" BackgroundColor="#e09b1c" Clicked="btnCambiar_Clicked" TextColor="White" FontAttributes="Bold" CornerRadius="20" />
+            <Button x:Name="btnVolver" Text="Volver" VerticalOptions="End" BackgroundColor="#e09b1c" Clicked="btnVolver_Clicked" TextColor="White" FontAttributes="Bold" CornerRadius="20" />
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AppInmobiliaria.DetallePropiedad"
+             NavigationPage.HasNavigationBar="False"
+             BackgroundImage="fondo.jpg">
+    <ContentPage.Content>
+        <StackLayout>
+            <Frame BackgroundColor="Transparent" Padding="0" Margin="0" HorizontalOptions="FillAndExpand">
+                <StackLayout Orientation="Horizontal">
+                    <Frame BackgroundColor="Transparent" Padding="0" HorizontalOptions="Start">
+                        <Image Source="logo.png" WidthRequest="125"/>
+                    </Frame>
+                    <Label x:Name="lblNomUser" TextColor="#e09b1c" FontSize="20" VerticalTextAlignment="Center" FontAttributes="Bold" HorizontalOptions="EndAndExpand" Margin="0, 0, 15, 0"/>
+                </StackLayout>
+            </Frame>
+            <Label Text="Detalle Propiedad" HorizontalTextAlignment="Center" FontSize="25" FontAttributes="Bold"/>
+
+            <Image x:Name="lblImgPrincipal" Margin="0"/>
+
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition  Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <Label Grid.Row="0" Grid.Column="0" Text="Precio:" HorizontalTextAlignment="End" FontSize="20" FontAttributes="Bold" />
+                <Label x:Name="lblPrecio" Grid.Row="0" Grid.Column="1" HorizontalTextAlignment="Center" FontSize="20" />
+
+                <Label Grid.Row="1" Grid.Column="0" Text="Tipo:" HorizontalTextAlignment="End" FontSize="20" FontAttributes="Bold" />
+                <Label x:Name="lblTipo" Grid.Row="1" Grid.Column="1" HorizontalTextAlignment="Center" FontSize="20" />
+
+                <Label Grid.Row="2" Grid.Column="0" Text="Ubicación:" HorizontalTextAlignment="End" FontSize="20" FontAttributes="Bold" />
+                <Label x:Name="lblUbicacion" Grid.Row="2" Grid.Column="1" HorizontalTextAlignment="Center" FontSize="15" />
+
+                <Label Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Text="Características" HorizontalTextAlignment="Center" FontSize="20" FontAttributes="Bold"/>
+
+                <Label Grid.Row="4" Grid.Column="0" Text="M2:" HorizontalTextAlignment="End" FontSize="20" FontAttributes="Bold" />
+                <Label x:Name="lblMetros" Grid.Row="4" Grid.Column="1" HorizontalTextAlignment="Center" FontSize="20" />
+
+                <Label Grid.Row="5" Grid.Column="0" Text="Plantas:" HorizontalTextAlignment="End" FontSize="20" FontAttributes="Bold" />
+                <Label x:Name="lblPlantas" Grid.Row="5" Grid.Column="1" HorizontalTextAlignment="Center" FontSize="20" />
+
+                <Label Grid.Row="6" Grid.Column="0" Text="Baños:" HorizontalTextAlignment="End" FontSize="20" FontAttributes="Bold" />
+                <Label x:Name="lblBanios" Grid.Row="6" Grid.Column="1" HorizontalTextAlignment="Center" FontSize="20" />
+
+                <Label Grid.Row="7" Grid.Column="0" Text="Habitaciones:" HorizontalTextAlignment="End" FontSize="20" FontAttributes="Bold" />
+                <Label x:Name="lblHabitaciones" Grid.Row="7" Grid.Column="1" HorizontalTextAlignment="Center" FontSize="20" />
+
+                <Label Grid.Row="8" Grid.Column="0" Text="Parqueaderos:" HorizontalTextAlignment="End" FontSize="20" FontAttributes="Bold" />
+                <Label x:Name="lblParqueaderos" Grid.Row="8" Grid.Column="1" HorizontalTextAlignment="Center" FontSize="20" />
+
+                <Label Grid.Row="9" Grid.Column="0" Text="Servicios:" HorizontalTextAlignment="End" FontSize="20" FontAttributes="Bold" />
+                <Label x:Name="lblServicios" Grid.Row="9" Grid.Column="1" HorizontalTextAlignment="Center" FontSize="20" />
+
+                <Label Grid.Row="10" Grid.Column="0" Text="Otros:" HorizontalTextAlignment="End" FontSize="20" FontAttributes="Bold" />
+                <Label x:Name="lblOtros" Grid.Row="10" Grid.Column="1" HorizontalTextAlignment="Center" FontSize="20" />
+
+                <Button x:Name="btnAlbum" Text="Ver Fotos" Grid.Row="11" Grid.Column="0" BackgroundColor="#e09b1c" Clicked="btnAlbum_Clicked" TextColor="White" FontAttributes="Bold" CornerRadius="20" />
+
+                <Button x:Name="btnMapa" Text="Ver Ubicación" Grid.Row="11" Grid.Column="1" BackgroundColor="#e09b1c" Clicked="btnMapa_Clicked" TextColor="White" FontAttributes="Bold" CornerRadius="20" />
+
+                <Button x:Name="btnContactar" Text="Contactar Asesor" Grid.Row="12" Grid.Column="0" Grid.ColumnSpan="2" BackgroundColor="#e09b1c" Clicked="btnContactar_Clicked" TextColor="White" FontAttributes="Bold" CornerRadius="20" />
+            </Grid>
+
+            <Button x:Name="btnVolver" Text="Volver" BackgroundColor="#e09b1c" Clicked="btnVolver_Clicked" TextColor="White" FontAttributes="Bold" CornerRadius="20" />
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
