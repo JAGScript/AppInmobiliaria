@@ -17,14 +17,17 @@ namespace AppInmobiliaria
     public partial class Registro : ContentPage
     {
         private readonly HttpClient client = new HttpClient();
-        private const string Url = "http://192.168.1.3/RBInmobiliaria/api/usuarios.php";
+        private const string UrlUsuario = "usuarios.php";
         private ObservableCollection<AppInmobiliaria.Models.Usuario> _post;
 
-        private const string UrlPersona = "http://192.168.1.3/RBInmobiliaria/api/persona.php";
+        private const string UrlPersona = "persona.php";
 
-        public Registro()
+        private string Path = "";
+
+        public Registro(string url)
         {
             InitializeComponent();
+            Path = url;
         }
 
         private async void btnGuardar_Clicked(object sender, EventArgs e)
@@ -45,7 +48,7 @@ namespace AppInmobiliaria
             else
             {
                 string cadenaParams = "?UserName=" + username + "&IdentificacionUsuario=" + identificacion + "&CorreoUsuario=" + correo;
-                var content = await client.GetStringAsync(Url + cadenaParams);
+                var content = await client.GetStringAsync(Path + UrlUsuario + cadenaParams);
                 List<AppInmobiliaria.Models.Usuario> posts = JsonConvert.DeserializeObject<List<AppInmobiliaria.Models.Usuario>>(content);
                 _post = new ObservableCollection<AppInmobiliaria.Models.Usuario>(posts);
 
@@ -73,7 +76,7 @@ namespace AppInmobiliaria
 
                     RegistrarUsuario(parametros);
 
-                    var usuarioGuardado = await client.GetStringAsync(Url + cadenaParams);
+                    var usuarioGuardado = await client.GetStringAsync(Path + UrlUsuario + cadenaParams);
                     List<AppInmobiliaria.Models.Usuario> nuevoUser = JsonConvert.DeserializeObject<List<AppInmobiliaria.Models.Usuario>>(usuarioGuardado);
                     var usuarioNuevo = nuevoUser.FirstOrDefault();
 
@@ -102,7 +105,7 @@ namespace AppInmobiliaria
             {
                 WebClient cliente = new WebClient();
 
-                cliente.UploadValues(Url, "POST", parametros);
+                cliente.UploadValues(Path + UrlUsuario, "POST", parametros);
             }
             catch (Exception ex)
             {
@@ -116,7 +119,7 @@ namespace AppInmobiliaria
             {
                 WebClient cliente = new WebClient();
 
-                cliente.UploadValues(UrlPersona, "POST", parametrosPersona);
+                cliente.UploadValues(Path + UrlPersona, "POST", parametrosPersona);
             }
             catch (Exception ex)
             {

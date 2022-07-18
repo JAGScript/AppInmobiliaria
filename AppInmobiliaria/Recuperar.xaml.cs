@@ -18,8 +18,8 @@ namespace AppInmobiliaria
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class Recuperar : ContentPage
     {
-        private const string UrlUsuario = "http://192.168.1.3/RBInmobiliaria/api/usuarios.php";
-        private const string UrlCodigoRecuperacion = "http://192.168.1.3/RBInmobiliaria/api/tranusuarios.php";
+        private const string UrlUsuario = "usuarios.php";
+        private const string UrlCodigoRecuperacion = "tranusuarios.php";
         private readonly HttpClient client = new HttpClient();
         private ObservableCollection<AppInmobiliaria.Models.Usuario> _post;
         private ObservableCollection<AppInmobiliaria.Models.CodigoRecuperar> _listaCodigo;
@@ -27,9 +27,12 @@ namespace AppInmobiliaria
         int codigoGenerado = 0;
         int usuarioEscogido = 0;
 
-        public Recuperar()
+        private string Path = "";
+
+        public Recuperar(string url)
         {
             InitializeComponent();
+            Path = url;
         }
 
         private async void btnRecuperar_Clicked(object sender, EventArgs e)
@@ -45,7 +48,7 @@ namespace AppInmobiliaria
             else
             {
                 string cadenaParams = "?UserName=" + username + "&IdentificacionUsuario=" + identificacion + "&CorreoUsuario=" + correo;
-                var content = await client.GetStringAsync(UrlUsuario + cadenaParams);
+                var content = await client.GetStringAsync(Path + UrlUsuario + cadenaParams);
                 List<AppInmobiliaria.Models.Usuario> posts = JsonConvert.DeserializeObject<List<AppInmobiliaria.Models.Usuario>>(content);
                 _post = new ObservableCollection<AppInmobiliaria.Models.Usuario>(posts);
 
@@ -55,7 +58,7 @@ namespace AppInmobiliaria
                     usuarioEscogido = usuario.us_id;
 
                     string cadenaCod = "?IdUsuario=" + usuarioEscogido;
-                    var contentCod = await client.GetStringAsync(UrlCodigoRecuperacion + cadenaCod);
+                    var contentCod = await client.GetStringAsync(Path + UrlCodigoRecuperacion + cadenaCod);
                     List<AppInmobiliaria.Models.CodigoRecuperar> codigos = JsonConvert.DeserializeObject<List<AppInmobiliaria.Models.CodigoRecuperar>>(contentCod);
 
                     if (codigos.Count > 0)
@@ -107,7 +110,7 @@ namespace AppInmobiliaria
             {
                 WebClient cliente = new WebClient();
 
-                cliente.UploadValues(UrlCodigoRecuperacion, "POST", parametros);
+                cliente.UploadValues(Path + UrlCodigoRecuperacion, "POST", parametros);
             }
             catch (Exception ex)
             {
@@ -160,7 +163,7 @@ namespace AppInmobiliaria
             else
             {
                 string cadenaParams = "?IdUsuario=" + usuarioEscogido;
-                var content = await client.GetStringAsync(UrlCodigoRecuperacion + cadenaParams);
+                var content = await client.GetStringAsync(Path + UrlCodigoRecuperacion + cadenaParams);
                 List<AppInmobiliaria.Models.CodigoRecuperar> posts = JsonConvert.DeserializeObject<List<AppInmobiliaria.Models.CodigoRecuperar>>(content);
                 _listaCodigo = new ObservableCollection<AppInmobiliaria.Models.CodigoRecuperar>(posts);
 
@@ -206,7 +209,7 @@ namespace AppInmobiliaria
 
             parametros += "&us_contrasena=" + contrasena;
 
-            var urlCompleta = new Uri(UrlUsuario + parametros);
+            var urlCompleta = new Uri(Path + UrlUsuario + parametros);
 
             cliente.UploadString(urlCompleta, "PUT", content);
         }
@@ -226,7 +229,7 @@ namespace AppInmobiliaria
 
             parametros += "&cr_estado=" + data.cr_estado;
 
-            var urlCompleta = new Uri(UrlCodigoRecuperacion + parametros);
+            var urlCompleta = new Uri(Path + UrlCodigoRecuperacion + parametros);
 
             cliente.UploadString(urlCompleta, "PUT", content);
         }

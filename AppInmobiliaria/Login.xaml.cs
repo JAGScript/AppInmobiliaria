@@ -15,9 +15,12 @@ namespace AppInmobiliaria
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class Login : ContentPage
     {
-        private const string UrlUsuario = "http://192.168.1.3/RBInmobiliaria/api/usuarios.php";
+        private const string Url = "http://192.168.1.3/RBInmobiliaria/api/";
+        private const string UrlImagenes = "http://192.168.1.3/RBInmobiliaria/subpages/propiedad/fotos/";
+        private const string UrlUsuario = Url + "usuarios.php";
         private readonly HttpClient client = new HttpClient();
         private ObservableCollection<AppInmobiliaria.Models.Usuario> _listaUsuarios;
+
         public Login()
         {
             InitializeComponent();
@@ -46,7 +49,7 @@ namespace AppInmobiliaria
 
                     await DisplayAlert("Alerta", "Bienvenid@!" + usuario.us_nombre, "Ok");
 
-                    await Navigation.PushAsync(new Propiedad(usuario));
+                    await Navigation.PushAsync(new Propiedad(usuario, Url, UrlImagenes));
                 }
                 else
                 {
@@ -57,7 +60,7 @@ namespace AppInmobiliaria
 
         private async void btnRegistrarse_Clicked(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new Registro());
+            await Navigation.PushAsync(new Registro(Url));
         }
 
         public class Encrypt
@@ -76,7 +79,7 @@ namespace AppInmobiliaria
 
         private async void btnRecuperar_Clicked(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new Recuperar());
+            await Navigation.PushAsync(new Recuperar(Url));
         }
     }
 }

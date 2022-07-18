@@ -17,59 +17,63 @@ namespace AppInmobiliaria
     {
         private readonly HttpClient client = new HttpClient();
 
-        private const string UrlPropiedad = "http://192.168.1.3/RBInmobiliaria/api/propiedad.php";
+        private const string UrlPropiedad = "propiedad.php";
         private ObservableCollection<AppInmobiliaria.Models.Propiedad> _propiedad;
 
-        private const string UrlTipoPropiedad = "http://192.168.1.3/RBInmobiliaria/api/tipopropiedad.php";
+        private const string UrlTipoPropiedad = "tipopropiedad.php";
         private ObservableCollection<AppInmobiliaria.Models.TipoPropiedad> _tipoPropiedad;
 
-        private const string UrlBarrio = "http://192.168.1.3/RBInmobiliaria/api/barrio.php";
+        private const string UrlBarrio = "barrio.php";
         private ObservableCollection<AppInmobiliaria.Models.Barrio> _barrio;
 
-        private const string UrlParroquia = "http://192.168.1.3/RBInmobiliaria/api/parroquia.php";
+        private const string UrlParroquia = "parroquia.php";
         private ObservableCollection<AppInmobiliaria.Models.Parroquia> _parroquia;
 
-        private const string UrlCanton = "http://192.168.1.3/RBInmobiliaria/api/canton.php";
+        private const string UrlCanton = "canton.php";
         private ObservableCollection<AppInmobiliaria.Models.Canton> _canton;
 
-        private const string UrlProvincia = "http://192.168.1.3/RBInmobiliaria/api/provincia.php";
+        private const string UrlProvincia = "provincia.php";
         private ObservableCollection<AppInmobiliaria.Models.Provincia> _provincia;
 
-        private const string UrlCaracteristica = "http://192.168.1.3/RBInmobiliaria/api/caracteristica.php";
+        private const string UrlCaracteristica = "caracteristica.php";
         private ObservableCollection<AppInmobiliaria.Models.Caracteristica> _caracteristica;
 
-        private const string UrlUsuario = "http://192.168.1.3/RBInmobiliaria/api/usuarios.php";
+        private const string UrlUsuario = "usuarios.php";
         private ObservableCollection<AppInmobiliaria.Models.Usuario> _asesor;
 
         Models.Usuario userLogueado = new Models.Usuario();
         string idPropiedad = "0";
         Models.Propiedad propiedad = new Models.Propiedad();
         string ubicacionPropiedad = "";
+        private string Path = "";
+        private string PathImagenes = "";
 
-        public DetallePropiedad(Models.Usuario usuario, string propiedad)
+        public DetallePropiedad(Models.Usuario usuario, string propiedad, string url, string urlImagenes)
         {
             InitializeComponent();
             userLogueado = usuario;
             lblNomUser.Text = userLogueado.us_nombre;
             idPropiedad = propiedad;
+            Path = url;
+            PathImagenes = urlImagenes;
             CargarDetalle();
         }
 
         public async void CargarDetalle()
         {
             string propiedadParam = "?IdPropiedad=" + idPropiedad;
-            var content = await client.GetStringAsync(UrlPropiedad + propiedadParam);
+            var content = await client.GetStringAsync(Path + UrlPropiedad + propiedadParam);
             List<AppInmobiliaria.Models.Propiedad> propiedades = JsonConvert.DeserializeObject<List<AppInmobiliaria.Models.Propiedad>>(content);
             _propiedad = new ObservableCollection<AppInmobiliaria.Models.Propiedad>(propiedades);
 
             if(_propiedad.Count == 1)
             {
                 propiedad = _propiedad.FirstOrDefault();
-                lblImgPrincipal.Source = "http://192.168.1.3/RBInmobiliaria/subpages/propiedad/fotos/" + propiedad.pr_foto_principal;
+                lblImgPrincipal.Source = PathImagenes + propiedad.pr_foto_principal;
                 lblPrecio.Text = propiedad.pr_precio.ToString("C");
 
                 string tipoPropiedadParam = "?IdTipo=" + propiedad.pr_tipo_id.ToString();
-                var rspTipoPropiedad = await client.GetStringAsync(UrlTipoPropiedad + tipoPropiedadParam);
+                var rspTipoPropiedad = await client.GetStringAsync(Path + UrlTipoPropiedad + tipoPropiedadParam);
                 List<AppInmobiliaria.Models.TipoPropiedad> tiposPropiedad = JsonConvert.DeserializeObject<List<AppInmobiliaria.Models.TipoPropiedad>>(rspTipoPropiedad);
                 _tipoPropiedad = new ObservableCollection<AppInmobiliaria.Models.TipoPropiedad>(tiposPropiedad);
 
@@ -94,7 +98,7 @@ namespace AppInmobiliaria
                 string nomBarrio = "";
 
                 string barrioParam = "?IdBarrio=" + propiedad.pr_barrio_id.ToString();
-                var rspBarrio = await client.GetStringAsync(UrlBarrio + barrioParam);
+                var rspBarrio = await client.GetStringAsync(Path + UrlBarrio + barrioParam);
                 List<AppInmobiliaria.Models.Barrio> barrios = JsonConvert.DeserializeObject<List<AppInmobiliaria.Models.Barrio>>(rspBarrio);
                 _barrio = new ObservableCollection<AppInmobiliaria.Models.Barrio>(barrios);
 
@@ -103,7 +107,7 @@ namespace AppInmobiliaria
                     barrio = _barrio.FirstOrDefault();
 
                     string parroquiaParam = "?IdParroquia=" + barrio.ba_parroquia_id.ToString();
-                    var rspParroquia = await client.GetStringAsync(UrlParroquia + parroquiaParam);
+                    var rspParroquia = await client.GetStringAsync(Path + UrlParroquia + parroquiaParam);
                     List<AppInmobiliaria.Models.Parroquia> parroquias = JsonConvert.DeserializeObject<List<AppInmobiliaria.Models.Parroquia>>(rspParroquia);
                     _parroquia = new ObservableCollection<AppInmobiliaria.Models.Parroquia>(parroquias);
 
@@ -114,7 +118,7 @@ namespace AppInmobiliaria
                         parroquia = _parroquia.FirstOrDefault();
 
                         string cantonParam = "?IdCanton=" + parroquia.pq_canton.ToString();
-                        var rspCanton = await client.GetStringAsync(UrlCanton + cantonParam);
+                        var rspCanton = await client.GetStringAsync(Path + UrlCanton + cantonParam);
                         List<AppInmobiliaria.Models.Canton> cantones = JsonConvert.DeserializeObject<List<AppInmobiliaria.Models.Canton>>(rspCanton);
                         _canton = new ObservableCollection<AppInmobiliaria.Models.Canton>(cantones);
 
@@ -125,7 +129,7 @@ namespace AppInmobiliaria
                             canton = _canton.FirstOrDefault();
 
                             string provinciaParam = "?IdProvincia=" + canton.ca_provincia_id.ToString();
-                            var rspProvincia = await client.GetStringAsync(UrlProvincia + provinciaParam);
+                            var rspProvincia = await client.GetStringAsync(Path + UrlProvincia + provinciaParam);
                             List<AppInmobiliaria.Models.Provincia> provincias = JsonConvert.DeserializeObject<List<AppInmobiliaria.Models.Provincia>>(rspProvincia);
                             _provincia = new ObservableCollection<AppInmobiliaria.Models.Provincia>(provincias);
 
@@ -148,7 +152,7 @@ namespace AppInmobiliaria
                 lblUbicacion.Text = ubicacionPropiedad;
 
                 string carParam = "?IdCaracteristica=" + propiedad.pr_caracteristica_id.ToString();
-                var rspCaracteristica = await client.GetStringAsync(UrlCaracteristica + carParam);
+                var rspCaracteristica = await client.GetStringAsync(Path + UrlCaracteristica + carParam);
                 List<AppInmobiliaria.Models.Caracteristica> caracteristicas = JsonConvert.DeserializeObject<List<AppInmobiliaria.Models.Caracteristica>>(rspCaracteristica);
                 _caracteristica = new ObservableCollection<AppInmobiliaria.Models.Caracteristica>(caracteristicas);
 
@@ -178,7 +182,7 @@ namespace AppInmobiliaria
             else
             {
                 await DisplayAlert("Alerta", "Error al consultar propiedad", "Ok");
-                await Navigation.PushAsync(new Propiedad(userLogueado));
+                await Navigation.PushAsync(new Propiedad(userLogueado, Path, PathImagenes));
             }
         }
 
@@ -189,18 +193,18 @@ namespace AppInmobiliaria
 
         private async void btnAlbum_Clicked(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new FotosPropiedad(userLogueado, idPropiedad));
+            await Navigation.PushAsync(new FotosPropiedad(userLogueado, idPropiedad, Path, PathImagenes));
         }
 
         private async void btnVolver_Clicked(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new Propiedad(userLogueado));
+            await Navigation.PushAsync(new Propiedad(userLogueado, Path, PathImagenes));
         }
 
         private async void btnContactar_Clicked(object sender, EventArgs e)
         {
             string usuarioParam = "?IdUsuario=" + propiedad.pr_usuario_id;
-            var content = await client.GetStringAsync(UrlUsuario + usuarioParam);
+            var content = await client.GetStringAsync(Path + UrlUsuario + usuarioParam);
             List<AppInmobiliaria.Models.Usuario> asesores = JsonConvert.DeserializeObject<List<AppInmobiliaria.Models.Usuario>>(content);
             _asesor = new ObservableCollection<AppInmobiliaria.Models.Usuario>(asesores);
 

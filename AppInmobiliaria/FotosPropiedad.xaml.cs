@@ -16,18 +16,22 @@ namespace AppInmobiliaria
     {
         private readonly HttpClient client = new HttpClient();
 
-        private const string UrlFotos = "http://192.168.1.3/RBInmobiliaria/api/imagen.php";
+        private const string UrlFotos = "imagen.php";
         private ObservableCollection<AppInmobiliaria.Models.Imagen> _Imagenes;
 
         Models.Usuario userLogueado = new Models.Usuario();
         string idPropiedad = "0";
+        private string Path = "";
+        private string PathImagenes = "";
 
-        public FotosPropiedad(Models.Usuario usuario, string propiedad)
+        public FotosPropiedad(Models.Usuario usuario, string propiedad, string url, string urlImagenes)
         {
             InitializeComponent();
             userLogueado = usuario;
             lblNomUser.Text = userLogueado.us_nombre;
             idPropiedad = propiedad;
+            Path = url;
+            PathImagenes = urlImagenes;
             CargarFotos();
         }
 
@@ -39,7 +43,7 @@ namespace AppInmobiliaria
         private async void CargarFotos()
         {
             string fotoParam = "?IdPropiedad=" + idPropiedad;
-            var content = await client.GetStringAsync(UrlFotos + fotoParam);
+            var content = await client.GetStringAsync(Path + UrlFotos + fotoParam);
             List<AppInmobiliaria.Models.Imagen> fotos = JsonConvert.DeserializeObject<List<AppInmobiliaria.Models.Imagen>>(content);
 
             if (fotos.Count > 0)
@@ -51,7 +55,7 @@ namespace AppInmobiliaria
                 {
                     foreach (var item in imagenes)
                     {
-                        item.im_nombre = "http://192.168.1.3/RBInmobiliaria/subpages/propiedad/fotos/" + item.im_nombre;
+                        item.im_nombre = PathImagenes + item.im_nombre;
                     }
 
                     carouselFotos.ItemsSource = imagenes;
@@ -71,7 +75,7 @@ namespace AppInmobiliaria
 
         private async void Volver()
         {
-            await Navigation.PushAsync(new DetallePropiedad(userLogueado, idPropiedad));
+            await Navigation.PushAsync(new DetallePropiedad(userLogueado, idPropiedad, Path, PathImagenes));
         }
     }
 }
