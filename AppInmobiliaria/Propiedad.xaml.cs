@@ -56,5 +56,10 @@ namespace AppInmobiliaria
 
             await Navigation.PushAsync(new DetallePropiedad(userLogueado, code.ToString(), Path, PathImagenes));
         }
+
+        private async void btnCerrarSesion_Clicked(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new Login());
+        }
     }
 }

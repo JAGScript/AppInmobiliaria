@@ -254,5 +254,10 @@ namespace AppInmobiliaria
 
             await DisplayAlert("Alerta", "Se ha enviado un mensaje al asesor, pronto se podrá en contacto con usted.", "Ok");
         }
+
+        private async void btnCerrarSesion_Clicked(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new Login());
+        }
     }
 }
