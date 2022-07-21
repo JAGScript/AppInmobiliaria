@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Net.Mail;
 using System.Text;
@@ -40,6 +41,8 @@ namespace AppInmobiliaria
 
         private const string UrlUsuario = "usuarios.php";
         private ObservableCollection<AppInmobiliaria.Models.Usuario> _asesor;
+
+        private const string UrlNotificacion = "notificacion.php";
 
         Models.Usuario userLogueado = new Models.Usuario();
         string idPropiedad = "0";
@@ -221,7 +224,7 @@ namespace AppInmobiliaria
 
                     mail.From = new MailAddress("rbinmobiliaria_pruebas@hotmail.com");
                     mail.To.Add(asesor.us_correo);
-                    mail.Subject = "Código de verificación";
+                    mail.Subject = "Notificación";
                     mail.Body = "Estimado, " + asesor.us_nombre + " \n\n" +
                         "Le informamos que el cliente: " + userLogueado.us_nombre + " se encuentra interesado por la propiedad:  \n\n" +
                         "Tipo: " + tipoPropiedad + " \n\n" +
@@ -241,6 +244,23 @@ namespace AppInmobiliaria
                     SmtpServer.Credentials = new System.Net.NetworkCredential("rbinmobiliaria_pruebas@hotmail.com", "RBInmo2022");
 
                     SmtpServer.Send(mail);
+
+                    var parametros = new System.Collections.Specialized.NameValueCollection();
+                    DateTime fecha = DateTime.Now;
+                    string estado = "1";
+
+                    string strFecha = fecha.ToString("yyyy-MM-dd HH:mm:ss");
+
+                    parametros.Add("Id", "");
+                    parametros.Add("IdAsesor", propiedad.pr_usuario_id.ToString());
+                    parametros.Add("IdPropiedad", propiedad.pr_id.ToString());
+                    parametros.Add("IdPersona", userLogueado.us_id.ToString());
+                    parametros.Add("Fecha", strFecha);
+                    parametros.Add("Estado", estado);
+
+                    WebClient cliente = new WebClient();
+
+                    cliente.UploadValues(Path + UrlNotificacion, "POST", parametros);
                 }
                 catch (Exception ex)
                 {
@@ -252,7 +272,7 @@ namespace AppInmobiliaria
 
             }
 
-            await DisplayAlert("Alerta", "Se ha enviado un mensaje al asesor, pronto se podrá en contacto con usted.", "Ok");
+            await DisplayAlert("Alerta", "Se ha enviado un mensaje al asesor, pronto se pondrá en contacto con usted.", "Ok");
         }
 
         private async void btnCerrarSesion_Clicked(object sender, EventArgs e)
